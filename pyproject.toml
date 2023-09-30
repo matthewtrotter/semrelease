@@ -14,8 +14,8 @@ version_variables = ["version.py:__version__"]
 match = "main"
 prerelease = false
 
-[semantic_release.branches.develop]
-match = "develop"
+[semantic_release.branches.dev]
+match = "dev"
 prerelease_token = "dev"
 prerelease = true
 
