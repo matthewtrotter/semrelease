@@ -2,7 +2,14 @@
 
 
 
-## v3.0.1-dev.1 (2023-09-30)
+## v3.0.1-dev.2 (2023-09-30)
+
+### Fix
+
+* fix(runtime): 🐛 fix a dev hing ([`c929d9a`](https://github.com/matthewtrotter/semrelease/commit/c929d9acedde97d24ebc78bfd3e0906a12f2179f))
+
+
+## v3.0.1-dev.1 (2023-10-01)
 
 ### Fix
 
