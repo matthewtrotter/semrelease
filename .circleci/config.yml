@@ -68,13 +68,13 @@ jobs:
             export GH_VERSION=$(semantic-release version --print)
             # Exit if this version is not a dev version
             if [[ $GH_VERSION != *"dev"* ]]; then
-              echo "Not a dev version"
+              echo "($GH_VERSION) is not a dev version. Skipping image push.)"
               exit 0
             fi
             # Exit if an image with this same tag already exists
             echo $DOCKER_API_KEY | docker login -u mt9399 --password-stdin
             if docker pull mt9399/app:$GH_VERSION; then
-              echo "Image with the same tag already exists"
+              echo "Image with ($GH_VERSION) tag already exists. Skipping image push."
               exit 0
             fi
             # Tag the dev image
