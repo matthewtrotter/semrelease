@@ -70,9 +70,9 @@ jobs:
           command: |
             export GH_VERSION=$(semantic-release version --print)
             echo $DOCKER_API_KEY | docker login -u mt9399 --password-stdin
-            docker pull mt9399/app:latest
-            docker tag mt9399/app:latest mt9399/app:$GH_VERSION
-            docker push mt9399/app:$GH_VERSION
+            sudo docker pull mt9399/app:latest
+            sudo docker tag mt9399/app:latest mt9399/app:$GH_VERSION
+            sudo docker push mt9399/app:$GH_VERSION
 
 
 workflows:
