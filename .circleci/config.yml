@@ -16,9 +16,10 @@ jobs:
       - run:
           name: Build image
           command: |
+            docker login -u mt9399 -p $DOCKER_API_KEY
             docker build -f app.Dockerfile -t app .
+            docker tag app mt9399/app:latest
             docker push mt9399/app:latest
-
   test:
     executor: ubuntu-machine-executor
     working_directory: /home/circleci/semrelease
@@ -50,6 +51,7 @@ jobs:
           name: Push image
           command: |
             export GH_VERSION=$(semantic-release version --print)
+            docker login -u mt9399 -p $DOCKER_API_KEY
             docker pull mt9399/app:latest
             docker tag mt9399/app:latest mt9399/app:$GH_VERSION
             docker push mt9399/app:$GH_VERSION
@@ -64,11 +66,6 @@ workflows:
             - docker
             - github
             - google
-          filters:
-            branches:
-              only:
-                - main
-                - dev
       - test:
           requires:
             - build
@@ -77,11 +74,6 @@ workflows:
             - docker
             - github
             - google
-          filters:
-            branches:
-              only:
-                - main
-                - dev
       - bump_version:
           requires:
             - test
