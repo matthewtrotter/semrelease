@@ -50,29 +50,25 @@ jobs:
             sleep 2
 
   tag_image:
-    docker:
-      - image: cimg/python:3.11
+    executor: ubuntu-machine-executor
     working_directory: /home/circleci/semrelease
     steps:
       - checkout
       - run:
-          name: Install git and semantic-release
+          name: Install python3 and semantic-release
           command: |
-            pip install python-semantic-release==8.1.1
+            apt-get update
+            apt-get install python3 python3-pip -y
+            pip3 install python-semantic-release==8.1.1
             semantic-release --version
-      - run:
-          name: Start dockerd
-          command: |
-            sudo dockerd &
-            sleep 5
       - run:
           name: Push image
           command: |
             export GH_VERSION=$(semantic-release version --print)
             echo $DOCKER_API_KEY | docker login -u mt9399 --password-stdin
-            sudo docker pull mt9399/app:latest
-            sudo docker tag mt9399/app:latest mt9399/app:$GH_VERSION
-            sudo docker push mt9399/app:$GH_VERSION
+            docker pull mt9399/app:latest
+            docker tag mt9399/app:latest mt9399/app:$GH_VERSION
+            docker push mt9399/app:$GH_VERSION
 
 
 workflows:
