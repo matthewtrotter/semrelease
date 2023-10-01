@@ -34,14 +34,13 @@ jobs:
 
   bump_version:
     docker:
-      - image: python:3.11-slim
+      - image: cimg/python:3.11
     working_directory: /home/circleci/semrelease
     steps:
       - checkout
       - run:
           name: Install git and semantic-release
           command: |
-            apt-get update && apt-get install -y git
             pip install python-semantic-release==8.1.1
             semantic-release --version
       - run:
@@ -52,14 +51,13 @@ jobs:
 
   tag_image:
     docker:
-      - image: python:3.11-slim
+      - image: cimg/python:3.11
     working_directory: /home/circleci/semrelease
     steps:
       - checkout
       - run:
           name: Install git and semantic-release
           command: |
-            apt-get update && apt-get install -y git
             pip install python-semantic-release==8.1.1
             semantic-release --version
       - run:
