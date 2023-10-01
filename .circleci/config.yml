@@ -64,6 +64,7 @@ jobs:
           name: Push image
           command: |
             export GH_VERSION=$(semantic-release version --print)
+            dockerd
             echo $DOCKER_API_KEY | docker login -u mt9399 --password-stdin
             docker pull mt9399/app:latest
             docker tag mt9399/app:latest mt9399/app:$GH_VERSION
