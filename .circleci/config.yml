@@ -33,18 +33,15 @@ jobs:
             docker run --rm app
 
   bump_version:
-    executor: ubuntu-machine-executor
+    docker:
+      - image: python:3.11-slim
     working_directory: /home/circleci/semrelease
     steps:
       - checkout
       - run:
           name: Install semantic-release
           command: |
-            # install python3 and pip
-            sudo apt-get update
-            sudo apt-get install -y python3 python3-pip
-            # install semantic-release
-            pip3 install python-semantic-release==8.1.1
+            pip install python-semantic-release==8.1.1
             semantic-release --version
       - run:
           name: Bump version
@@ -53,10 +50,16 @@ jobs:
             sleep 2
 
   tag_image:
-    executor: ubuntu-machine-executor
+    docker:
+      - image: python:3.11-slim
     working_directory: /home/circleci/semrelease
     steps:
       - checkout
+      - run:
+          name: Install semantic-release
+          command: |
+            pip install python-semantic-release==8.1.1
+            semantic-release --version
       - run:
           name: Push image
           command: |
