@@ -61,10 +61,14 @@ jobs:
             pip install python-semantic-release==8.1.1
             semantic-release --version
       - run:
+          name: Start dockerd
+          command: |
+            sudo dockerd &
+            sleep 5
+      - run:
           name: Push image
           command: |
             export GH_VERSION=$(semantic-release version --print)
-            dockerd
             echo $DOCKER_API_KEY | docker login -u mt9399 --password-stdin
             docker pull mt9399/app:latest
             docker tag mt9399/app:latest mt9399/app:$GH_VERSION
