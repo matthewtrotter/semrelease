@@ -16,9 +16,10 @@ jobs:
       - run:
           name: Build image
           command: |
+            docker login -u mt9399 -p $DOCKER_API_KEY
             docker build -f app.Dockerfile -t app .
+            docker tag app mt9399/app:latest
             docker push mt9399/app:latest
-
   test:
     executor: ubuntu-machine-executor
     working_directory: /home/circleci/semrelease
