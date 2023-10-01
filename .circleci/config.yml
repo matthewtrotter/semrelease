@@ -1,0 +1,110 @@
+version: 2.1
+
+executors:
+  ubuntu-machine-executor:
+    machine:
+      image: ubuntu-2204:2023.07.2
+      docker_layer_caching: true
+
+
+jobs:
+  build:
+    executor: ubuntu-machine-executor
+    working_directory: /home/circleci/semrelease
+    steps:
+      - checkout
+      - run:
+        name: Build image
+        command: |
+          docker build -f app.Dockerfile -t app .
+          docker push mt9399/app:latest
+
+  test:
+    executor: ubuntu-machine-executor
+    working_directory: /home/circleci/semrelease
+    steps:
+      - checkout
+      - run:
+        name: Run tests
+        command: |
+          docker pull mt9399/app:latest
+          docker run --rm app
+
+  bump_version:
+    executor: ubuntu-machine-executor
+    working_directory: /home/circleci/semrelease
+    steps:
+      - checkout
+      - run:
+        name: Bump version
+        command: |
+          semantic-release version
+          sleep 5
+
+  tag_image:
+    executor: ubuntu-machine-executor
+    working_directory: /home/circleci/semrelease
+    steps:
+      - checkout
+      - run:
+        name: Push image
+        command: |
+          export GH_VERSION=$(semantic-release version --print)
+          docker pull mt9399/app:latest
+          docker tag mt9399/app:latest mt9399/app:$GH_VERSION
+          docker push mt9399/app:$GH_VERSION
+
+
+workflows:
+  build_test_push:
+    jobs:
+      - build:
+          context:
+            - udp-server
+            - docker
+            - github
+            - google
+          filters:
+            branches:
+              only:
+                - main
+                - dev
+      - test:
+          requires:
+            - build
+          context:
+            - udp-server
+            - docker
+            - github
+            - google
+          filters:
+            branches:
+              only:
+                - main
+                - dev
+      - bump_version:
+          requires:
+            - test
+          context:
+            - udp-server
+            - docker
+            - github
+            - google
+          filters:
+            branches:
+              only:
+                - main
+                - dev
+      - push_images:
+          requires:
+            - bump_version
+          context:
+            - udp-server
+            - docker
+            - github
+            - google
+          filters:
+            branches:
+              only:
+                - main
+                - dev
