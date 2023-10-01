@@ -39,6 +39,7 @@ jobs:
       - run:
           name: Bump version
           command: |
+            pip install python-semantic-release==8.1.1
             semantic-release version
             sleep 5
 
