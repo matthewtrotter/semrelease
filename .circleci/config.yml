@@ -37,11 +37,21 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install semantic-release
+          command: |
+            # install python3 and pip
+            sudo apt-get update
+            sudo apt-get install -y python3 python3-pip
+            # Make python3 the default
+            sudo ln -s /usr/bin/python3 /usr/bin/python
+            # install semantic-release
+            pip install python-semantic-release==8.1.1
+            semantic-release --version
+      - run:
           name: Bump version
           command: |
-            python3 -m pip install python-semantic-release==8.1.1
             semantic-release version
-            sleep 5
+            sleep 2
 
   tag_image:
     executor: ubuntu-machine-executor
