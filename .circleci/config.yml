@@ -14,10 +14,10 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Build image
-        command: |
-          docker build -f app.Dockerfile -t app .
-          docker push mt9399/app:latest
+          name: Build image
+          command: |
+            docker build -f app.Dockerfile -t app .
+            docker push mt9399/app:latest
 
   test:
     executor: ubuntu-machine-executor
@@ -25,10 +25,10 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Run tests
-        command: |
-          docker pull mt9399/app:latest
-          docker run --rm app
+          name: Run tests
+          command: |
+            docker pull mt9399/app:latest
+            docker run --rm app
 
   bump_version:
     executor: ubuntu-machine-executor
@@ -36,10 +36,10 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Bump version
-        command: |
-          semantic-release version
-          sleep 5
+          name: Bump version
+          command: |
+            semantic-release version
+            sleep 5
 
   tag_image:
     executor: ubuntu-machine-executor
@@ -47,12 +47,12 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Push image
-        command: |
-          export GH_VERSION=$(semantic-release version --print)
-          docker pull mt9399/app:latest
-          docker tag mt9399/app:latest mt9399/app:$GH_VERSION
-          docker push mt9399/app:$GH_VERSION
+          name: Push image
+          command: |
+            export GH_VERSION=$(semantic-release version --print)
+            docker pull mt9399/app:latest
+            docker tag mt9399/app:latest mt9399/app:$GH_VERSION
+            docker push mt9399/app:$GH_VERSION
 
 
 workflows:
@@ -95,7 +95,7 @@ workflows:
               only:
                 - main
                 - dev
-      - push_images:
+      - tag_image:
           requires:
             - bump_version
           context:
