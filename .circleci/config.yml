@@ -16,7 +16,7 @@ jobs:
       - run:
           name: Exit on certain commit messages
           command: |
-            export COMMIT_MESSAGE = $(git log -1 --pretty=%B)
+            export COMMIT_MESSAGE=$(git log -1 --pretty=%B)
             # Exit if commit message starts with the word "merge" or "Merge" or is a version number like 1.2.3 or 1.2.3-dev.1
             if [[ $COMMIT_MESSAGE =~ ^Merge.*$ ]]; then
               echo "Commit message starts with the word 'merge'. Exiting job."
