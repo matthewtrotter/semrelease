@@ -18,18 +18,23 @@ jobs:
           command: |
             export COMMIT_MESSAGE=$(git log -1 --pretty=%B)
             # Exit if commit message starts with the word "merge" or "Merge" or is a version number like 3.0.25 or 3.0.25-dev.1
-            if [[ $COMMIT_MESSAGE =~ ^Merge.*$ ]]; then
-              echo "Commit message starts with the word 'merge'. Exiting job."
-              # Exit the entire job
-              exit 20
+            if [[ $COMMIT_MESSAGE =~ ^[Mm]erge ]]; then
+                echo "Commit message starts with the word 'merge'. Exiting job."
+                echo "Commit message:"
+                echo $COMMIT_MESSAGE
+                exit 20
             fi
-            if [[ $COMMIT_MESSAGE =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-              echo "Commit message is a version number. Exiting job."
-              exit 21
+            if [[ $COMMIT_MESSAGE =~ ^[0-9]+\.[0-9]+\.[0-9]+(\n|.)*$ ]]; then
+                echo "Commit message is a version number. Exiting job."
+                echo "Commit message:"
+                echo $COMMIT_MESSAGE
+                exit 21
             fi
-            if [[ $COMMIT_MESSAGE =~ ^[0-9]+\.[0-9]+\.[0-9]+(-dev\.[0-9]+)?$ ]]; then
-              echo "Commit message is a dev version number. Exiting job."
-              exit 22
+            if [[ $COMMIT_MESSAGE =~ ^[0-9]+\.[0-9]+\.[0-9]+-dev\.[0-9]+(\n|.)*$ ]]; then
+                echo "Commit message is a dev version number. Exiting job."
+                echo "Commit message:"
+                echo $COMMIT_MESSAGE
+                exit 22
             fi
             # continue with the rest of the job
       - run:
@@ -66,8 +71,10 @@ jobs:
       - run:
           name: Bump version
           command: |
-            semantic-release version
-            sleep 2
+            semantic-release version --no-commit --no-changelog --skip-build --push
+            export GH_VERSION=v$(semantic-release version --print)
+            git tag $GH_VERSION
+            git push origin $GH_VERSION
 
   tag_dev_image:
     executor: ubuntu-machine-executor
