@@ -12,3 +12,5 @@ y = 2235235
 
 z = 234 
 zz = 243444
+
+print('fix a bug in LNS-100')

@@ -1,4 +1,0 @@
-"""Official LoRa Network Server version number.
-"""
-
-__version__ = "3.2.1-dev.1"
