@@ -2,6 +2,13 @@
 
 
 
+## v3.2.1-dev.1 (2023-10-02)
+
+### Fix
+
+* fix: capture regex better ([`135c56a`](https://github.com/matthewtrotter/semrelease/commit/135c56ab1bb16fdf05182cbfaecc68f237d64e56))
+
+
 ## v3.2.0 (2023-10-02)
 
 ### Unknown
