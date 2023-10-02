@@ -5,4 +5,4 @@ We have two release branches: `main` and `dev`. The `main` branch is the product
 
 We have automatic semantic versioning set up:
 
-![branches](http://url/to/img.png)
+![branches](https://github.com/matthewtrotter/semrelease/blob/docs/LNS-110/branches.png)
