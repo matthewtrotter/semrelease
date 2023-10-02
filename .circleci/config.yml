@@ -118,6 +118,18 @@ jobs:
             docker tag mt9399/app:latest mt9399/app:$GH_VERSION
             docker push mt9399/app:$GH_VERSION
 
+  merge_to_dev:
+    executor: ubuntu-machine-executor
+    working_directory: /home/circleci/semrelease
+    steps:
+      - checkout
+      - run:
+          name: Merge main to dev
+          command: |
+            git checkout dev
+            git merge main
+            git push origin dev
+
 
 workflows:
   build_test_push_dev:
@@ -204,5 +216,15 @@ workflows:
             branches:
               only:
                 - main
-
-
+      - merge_to_dev:
+          requires:
+            - tag_prod_image
+          context:
+            - udp-server
+            - docker
+            - github
+            - google
+          filters:
+            branches:
+              only:
+                - main
