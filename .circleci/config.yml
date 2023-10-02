@@ -182,7 +182,7 @@ workflows:
                 - main
       - bump_version:
           requires:
-            - test
+            - build
           context:
             - udp-server
             - docker
