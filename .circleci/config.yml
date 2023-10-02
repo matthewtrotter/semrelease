@@ -120,7 +120,7 @@ jobs:
 
 
 workflows:
-  build_test_push:
+  build_test_push_dev:
     jobs:
       - build:
           context:
@@ -128,6 +128,10 @@ workflows:
             - docker
             - github
             - google
+          filters:
+            branches:
+              only:
+                - dev
       - test:
           requires:
             - build
@@ -151,7 +155,6 @@ workflows:
           filters:
             branches:
               only:
-                - main
                 - dev
       - tag_dev_image:
           requires:
@@ -165,6 +168,30 @@ workflows:
             branches:
               only:
                 - dev
+  build_push_prod:
+    jobs:
+      - build:
+          context:
+            - udp-server
+            - docker
+            - github
+            - google
+          filters:
+            branches:
+              only:
+                - main
+      - bump_version:
+          requires:
+            - test
+          context:
+            - udp-server
+            - docker
+            - github
+            - google
+          filters:
+            branches:
+              only:
+                - main
       - tag_prod_image:
           requires:
             - bump_version
