@@ -2,19 +2,29 @@
 
 
 
+## v3.1.1-dev.1 (2023-10-02)
+
+### Fix
+
+* fix: new fix ([`d3f6163`](https://github.com/matthewtrotter/semrelease/commit/d3f6163b469b7a14454de3e3e2f52df5d8a8ac83))
+
+### Unknown
+
+* Merge branch &#39;main&#39; into dev ([`cf1d1a8`](https://github.com/matthewtrotter/semrelease/commit/cf1d1a8840da8a4a4b918a05babafcb0969d2f45))
+
+
+## v3.1.0-dev.3 (2023-10-02)
+
+### Fix
+
+* fix(muxs): remove copy command ([`cad3f8b`](https://github.com/matthewtrotter/semrelease/commit/cad3f8b2d0c61ff11692aeaf7e669d7a0052a896))
+
+
 ## v3.1.0 (2023-10-02)
 
 ### Ci
 
 * ci: match pattern better ([`33d2514`](https://github.com/matthewtrotter/semrelease/commit/33d2514bf33d141d6546ee1d3c1c478e8590b9ce))
-
-* ci: no more squash n merge commits (#8) ([`9d32a46`](https://github.com/matthewtrotter/semrelease/commit/9d32a464183318307e2f8f5f8143ff1a7798ba1d))
-
-* ci: equals typo ([`ef571e2`](https://github.com/matthewtrotter/semrelease/commit/ef571e24dfcb4a44f59a197594d8dc273742e3d6))
-
-* ci: add export ([`3a46517`](https://github.com/matthewtrotter/semrelease/commit/3a46517187c48b73730362047f9b4e6141f2db34))
-
-* ci: exit on version better ([`5be14a6`](https://github.com/matthewtrotter/semrelease/commit/5be14a64118aac4729ca945aa9814324b0093c59))
 
 ### Feature
 
@@ -27,6 +37,47 @@
 ### Fix
 
 * fix(downs): remove problematic logs ([`546a1cd`](https://github.com/matthewtrotter/semrelease/commit/546a1cddc5a07c240b1f9e2c1ff5bd8b133e56db))
+
+
+## v3.1.0-dev.2 (2023-10-02)
+
+### Ci
+
+* ci: match pattern better ([`c8c33e1`](https://github.com/matthewtrotter/semrelease/commit/c8c33e19b3370127f649b7e26266baf553192919))
+
+### Feature
+
+* feat(bcns): add more data ([`7feeed1`](https://github.com/matthewtrotter/semrelease/commit/7feeed11f09c0e1c0cc44c80a3126f3333003dc1))
+
+
+## v3.1.0-dev.1 (2023-10-02)
+
+### Feature
+
+* feat: add new bcns webpage ([`83a483e`](https://github.com/matthewtrotter/semrelease/commit/83a483e1b08e7379f318353006e559c222c46c18))
+
+* feat(bcns): add new webpage ([`edc60d6`](https://github.com/matthewtrotter/semrelease/commit/edc60d691cede9a9ab06c3888926fd843035d883))
+
+### Unknown
+
+* Merge branch &#39;dev&#39; of github.com:matthewtrotter/semrelease into dev ([`d6c624b`](https://github.com/matthewtrotter/semrelease/commit/d6c624bbbfbb03cf65f848d7f2627e6b86fcf3ec))
+
+
+## v3.0.4-dev.1 (2023-10-02)
+
+### Ci
+
+* ci: no more squash n merge commits (#8) ([`9d32a46`](https://github.com/matthewtrotter/semrelease/commit/9d32a464183318307e2f8f5f8143ff1a7798ba1d))
+
+* ci: equals typo ([`ef571e2`](https://github.com/matthewtrotter/semrelease/commit/ef571e24dfcb4a44f59a197594d8dc273742e3d6))
+
+* ci: add export ([`3a46517`](https://github.com/matthewtrotter/semrelease/commit/3a46517187c48b73730362047f9b4e6141f2db34))
+
+* ci: exit on version better ([`5be14a6`](https://github.com/matthewtrotter/semrelease/commit/5be14a64118aac4729ca945aa9814324b0093c59))
+
+### Fix
+
+* fix(downs): remove problematic logs ([`6ecae7a`](https://github.com/matthewtrotter/semrelease/commit/6ecae7aecdd1c544f7c46e034e304cc5e1371f44))
 
 
 ## v3.0.3 (2023-10-02)
