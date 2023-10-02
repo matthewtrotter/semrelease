@@ -21,6 +21,7 @@ jobs:
             docker build -f app.Dockerfile -t app .
             docker tag app mt9399/app:latest
             docker push mt9399/app:latest
+
   test:
     executor: ubuntu-machine-executor
     working_directory: /home/circleci/semrelease
@@ -135,6 +136,10 @@ workflows:
             - docker
             - github
             - google
+          filters:
+            branches:
+              ignore:
+                - main
       - bump_version:
           requires:
             - test
