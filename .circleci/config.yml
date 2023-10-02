@@ -65,10 +65,45 @@ jobs:
       - run:
           name: Push image
           command: |
-            export GH_VERSION=$(semantic-release version --print)
+            # Put a v in front of version like v1.0.0 
+            export GH_VERSION=v$(semantic-release version --print)  
             # Exit if this version is not a dev version
             if [[ $GH_VERSION != *"dev"* ]]; then
-              echo "($GH_VERSION) is not a dev version. Skipping image push.)"
+              echo "$GH_VERSION is not a dev version. Skipping image push."
+              exit 0
+            fi
+            # Exit if an image with this same tag already exists
+            echo $DOCKER_API_KEY | docker login -u mt9399 --password-stdin
+            if docker pull mt9399/app:$GH_VERSION; then
+              echo "Image with ($GH_VERSION) tag already exists. Skipping image push."
+              exit 0
+            fi
+            # Tag the dev image
+            docker pull mt9399/app:latest
+            docker tag mt9399/app:latest mt9399/app:$GH_VERSION
+            docker push mt9399/app:$GH_VERSION
+
+  tag_prod_image:
+    executor: ubuntu-machine-executor
+    working_directory: /home/circleci/semrelease
+    steps:
+      - checkout
+      - run:
+          name: Install python3 and semantic-release
+          command: |
+            sudo apt-get update
+            sudo apt-get install python3 python3-pip -y
+            pip3 install python-semantic-release==8.1.1
+            semantic-release --version
+            sleep 2
+      - run:
+          name: Push image
+          command: |
+            # Put a v in front of version like v1.0.0 
+            export GH_VERSION=v$(semantic-release version --print)  
+            # Exit if this version is not a production release version that follows semantic versioning
+            if [[ $GH_VERSION == *"dev"* ]]; then
+              echo "$GH_VERSION is not a production release version. Skipping image push."
               exit 0
             fi
             # Exit if an image with this same tag already exists
@@ -125,3 +160,16 @@ workflows:
             branches:
               only:
                 - dev
+      - tag_prod_image:
+          requires:
+            - bump_version
+          context:
+            - udp-server
+            - docker
+            - github
+            - google
+          filters:
+            branches:
+              only:
+                - main
+
