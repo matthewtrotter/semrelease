@@ -2,6 +2,19 @@
 
 
 
+## v3.0.2-dev.2 (2023-10-02)
+
+### Ci
+
+* ci: ignore main test ([`1598db5`](https://github.com/matthewtrotter/semrelease/commit/1598db5483ba7e8ffc690056c8c1be5254b2c012))
+
+* ci: add prod build push ([`3bd34fd`](https://github.com/matthewtrotter/semrelease/commit/3bd34fd5f2f3a645dcfa39a20ef1543006f5b285))
+
+### Fix
+
+* fix(muxs): restart service when failed ([`e6e5528`](https://github.com/matthewtrotter/semrelease/commit/e6e552820642f739b1362ebe9080f499449837d3))
+
+
 ## v3.0.2-dev.1 (2023-10-01)
 
 ### Ci
