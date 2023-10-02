@@ -57,7 +57,7 @@ jobs:
             docker pull mt9399/app:latest
             docker run --rm app
 
-  bump_version:
+  bump_dev_version:
     docker:
       - image: cimg/python:3.11
     working_directory: /home/circleci/semrelease
@@ -73,6 +73,39 @@ jobs:
           command: |
             semantic-release version --no-commit --no-changelog --skip-build --push
             export GH_VERSION=v$(semantic-release version --print)
+            # If the tag already exists, then just exit cleanly
+            if git rev-parse $GH_VERSION >/dev/null 2>&1; then
+              echo "Tag $GH_VERSION already exists. Exiting cleanly."
+              exit 0
+            fi
+            # If the tag doesn't exist, then create it and push it
+            git tag $GH_VERSION
+            git push origin $GH_VERSION
+
+  bump_prod_version:
+    docker:
+      - image: cimg/python:3.11
+    working_directory: /home/circleci/semrelease
+    steps:
+      - checkout
+      - run:
+          name: Install git and semantic-release
+          command: |
+            pip install python-semantic-release==8.1.1
+            semantic-release --version
+      - run:
+          name: Bump version on github
+          command: |
+            # Get latest version tag from dev branch
+            git checkout dev
+            export GH_VERSION=$(git describe --tags --abbrev=0)
+            # Exit if this version is not a dev version
+            if [[ $GH_VERSION != *"dev"* ]]; then
+              echo "$GH_VERSION is not a dev version. Exiting cleanly."
+              exit 0
+            fi
+            # Remove the -dev.X from the version
+            export GH_VERSION=$(echo $GH_VERSION | sed 's/-dev\.[0-9]\+//')
             # If the tag already exists, then just exit cleanly
             if git rev-parse $GH_VERSION >/dev/null 2>&1; then
               echo "Tag $GH_VERSION already exists. Exiting cleanly."
@@ -207,7 +240,7 @@ workflows:
             branches:
               only:
                 - dev
-      - bump_version:
+      - bump_dev_version:
           requires:
             - test
           context:
@@ -243,7 +276,7 @@ workflows:
             branches:
               only:
                 - main
-      - bump_version:
+      - bump_prod_version:
           requires:
             - build
           context:
