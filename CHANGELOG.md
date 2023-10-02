@@ -2,6 +2,13 @@
 
 
 
+## v3.2.0 (2023-10-02)
+
+### Unknown
+
+* Dev (#10) ([`c9ff775`](https://github.com/matthewtrotter/semrelease/commit/c9ff775d12d9a0e6f6e2dd4b0b22022dc50cf026))
+
+
 ## v3.1.1-dev.1 (2023-10-02)
 
 ### Fix
