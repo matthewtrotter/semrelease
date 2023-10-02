@@ -2,6 +2,13 @@
 
 
 
+## v3.1.0-dev.3 (2023-10-02)
+
+### Fix
+
+* fix(muxs): remove copy command ([`cad3f8b`](https://github.com/matthewtrotter/semrelease/commit/cad3f8b2d0c61ff11692aeaf7e669d7a0052a896))
+
+
 ## v3.1.0-dev.2 (2023-10-02)
 
 ### Ci
