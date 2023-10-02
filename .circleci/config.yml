@@ -73,9 +73,9 @@ jobs:
           command: |
             semantic-release version --no-commit --no-changelog --skip-build --push
             export GH_VERSION=v$(semantic-release version --print)
+            export CURRENT_BRANCH=$(git branch --show-current)
             git tag $GH_VERSION
-            git push origin $GH_VERSION
-            sleep 2
+            git push https://${GH_TOKEN}@github.com/matthewtrotter/semrelease.git $CURRENT_BRANCH
 
   tag_dev_image:
     executor: ubuntu-machine-executor
