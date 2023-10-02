@@ -127,7 +127,8 @@ jobs:
           name: Merge main to dev
           command: |
             git checkout dev
-            git merge main -m "Merge main to dev"
+            # Accept all incoming changes
+            git merge main -m "Merge main to dev" --no-edit
             git push origin dev
 
 
