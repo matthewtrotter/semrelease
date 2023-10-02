@@ -2,6 +2,21 @@
 
 
 
+## v3.0.2-dev.4 (2023-10-02)
+
+### Ci
+
+* ci: merge to dev ([`8c3b2ac`](https://github.com/matthewtrotter/semrelease/commit/8c3b2acae3a51a340d249800b5cb86e962ef3994))
+
+### Fix
+
+* fix(ups): increment numbers ([`b03cd16`](https://github.com/matthewtrotter/semrelease/commit/b03cd165a4dbc4013fa67bd97742b811b7d71d8c))
+
+### Unknown
+
+* Merge branch &#39;dev&#39; of github.com:matthewtrotter/semrelease into dev ([`3835573`](https://github.com/matthewtrotter/semrelease/commit/38355732a438ae90c41760435ba62fdeb81be144))
+
+
 ## v3.0.2-dev.3 (2023-10-02)
 
 ### Ci
