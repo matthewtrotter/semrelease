@@ -69,10 +69,16 @@ jobs:
             pip install python-semantic-release==8.1.1
             semantic-release --version
       - run:
-          name: Bump version
+          name: Bump version on github
           command: |
             semantic-release version --no-commit --no-changelog --skip-build --push
             export GH_VERSION=v$(semantic-release version --print)
+            # If the tag already exists, then just exit cleanly
+            if git rev-parse $GH_VERSION >/dev/null 2>&1; then
+              echo "Tag $GH_VERSION already exists. Exiting cleanly."
+              exit 0
+            fi
+            # If the tag doesn't exist, then create it and push it
             git tag $GH_VERSION
             git push origin $GH_VERSION
 
@@ -152,7 +158,7 @@ jobs:
 
 
 workflows:
-  dev_workflow:
+  development:
     jobs:
       - build:
           context:
@@ -200,7 +206,7 @@ workflows:
             branches:
               only:
                 - dev
-  main_workflow:
+  production:
     # Don't run when commit message is a version number like 1.2.3
     jobs:
       - build:
