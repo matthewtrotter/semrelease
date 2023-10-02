@@ -143,10 +143,16 @@ jobs:
             docker pull mt9399/app:latest
             docker tag mt9399/app:latest mt9399/app:$GH_VERSION
             docker push mt9399/app:$GH_VERSION
+      - run:
+          name: Merge to dev
+          command: |
+            git checkout dev
+            git merge main --no-edit -m "Merge branch main into dev"
+            git push origin dev
 
 
 workflows:
-  build_test_push_dev:
+  dev_workflow:
     jobs:
       - build:
           context:
@@ -156,8 +162,8 @@ workflows:
             - google
           filters:
             branches:
-              only:
-                - dev
+              ignore:
+                - main
       - test:
           requires:
             - build
@@ -194,7 +200,7 @@ workflows:
             branches:
               only:
                 - dev
-  build_push_prod:
+  main_workflow:
     # Don't run when commit message is a version number like 1.2.3
     jobs:
       - build:
