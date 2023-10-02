@@ -5,12 +5,4 @@ We have two release branches: `main` and `dev`. The `main` branch is the product
 
 We have automatic semantic versioning set up:
 
-```
-fix/*       0--------0     0--------0
-           /     (PR) \   /     (PR) \
-          /       v3.0.1-dev.1   v3.0.1-dev.2
-dev      0--------------0--------------0
-        /                          (PR) \
-main   0---------------------------------0
-    v3.0.0                            v3.0.1
-```
+![branches](https://github.com/matthewtrotter/semrelease/blob/docs/LNS-110/branches.png)
