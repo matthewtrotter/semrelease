@@ -158,7 +158,7 @@ jobs:
 
 
 workflows:
-  development:
+  tests_only:
     jobs:
       - build:
           context:
@@ -170,6 +170,7 @@ workflows:
             branches:
               ignore:
                 - main
+                - dev
       - test:
           requires:
             - build
@@ -182,6 +183,31 @@ workflows:
             branches:
               ignore:
                 - main
+                - dev
+  development:
+    jobs:
+      - build:
+          context:
+            - udp-server
+            - docker
+            - github
+            - google
+          filters:
+            branches:
+              only:
+                - dev
+      - test:
+          requires:
+            - build
+          context:
+            - udp-server
+            - docker
+            - github
+            - google
+          filters:
+            branches:
+              only:
+                - dev
       - bump_version:
           requires:
             - test
