@@ -14,6 +14,20 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Exit on certain commit messages
+          command: |
+            # Exit if commit message contains the word "merge" or "Merge" or is a version number like 1.2.3 or 1.2.3-dev.1
+            if [[ $CIRCLE_COMMIT_MESSAGE == *"merge"* || $CIRCLE_COMMIT_MESSAGE == *"Merge"* ]]; then
+              echo "Commit message contains the word merge. Exiting job."
+              # Exit the entire job
+              exit 20
+            fi
+            if [[ $CIRCLE_COMMIT_MESSAGE =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo "Commit message is a version number. Exiting job."
+              exit 21
+            fi
+            # continue with the rest of the job
+      - run:
           name: Build image
           command: |
             # log in to docker
@@ -118,19 +132,6 @@ jobs:
             docker tag mt9399/app:latest mt9399/app:$GH_VERSION
             docker push mt9399/app:$GH_VERSION
 
-  merge_to_dev:
-    executor: ubuntu-machine-executor
-    working_directory: /home/circleci/semrelease
-    steps:
-      - checkout
-      - run:
-          name: Merge main to dev
-          command: |
-            git checkout dev
-            # Accept all incoming changes
-            git merge main -m "Merge main to dev" --no-edit
-            git push origin dev
-
 
 workflows:
   build_test_push_dev:
@@ -209,18 +210,6 @@ workflows:
       - tag_prod_image:
           requires:
             - bump_version
-          context:
-            - udp-server
-            - docker
-            - github
-            - google
-          filters:
-            branches:
-              only:
-                - main
-      - merge_to_dev:
-          requires:
-            - tag_prod_image
           context:
             - udp-server
             - docker
