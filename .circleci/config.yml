@@ -97,7 +97,7 @@ jobs:
           name: Bump version on github
           command: |
             # Get latest version tag from dev branch
-            git checkout dev
+            git checkout main
             export GH_VERSION=$(git describe --tags --abbrev=0)
             # Exit if this version is not a dev version
             if [[ $GH_VERSION != *"dev"* ]]; then
