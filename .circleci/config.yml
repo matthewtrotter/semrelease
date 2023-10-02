@@ -254,7 +254,7 @@ workflows:
                 - dev
       - tag_dev_image:
           requires:
-            - bump_version
+            - bump_dev_version
           context:
             - udp-server
             - docker
@@ -290,7 +290,7 @@ workflows:
                 - main
       - tag_prod_image:
           requires:
-            - bump_version
+            - bump_prod_version
           context:
             - udp-server
             - docker
