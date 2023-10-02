@@ -69,10 +69,16 @@ jobs:
             pip install python-semantic-release==8.1.1
             semantic-release --version
       - run:
-          name: Bump version
+          name: Bump version on github
           command: |
             semantic-release version --no-commit --no-changelog --skip-build --push
             export GH_VERSION=v$(semantic-release version --print)
+            # If the tag already exists, then just exit cleanly
+            if git rev-parse $GH_VERSION >/dev/null 2>&1; then
+              echo "Tag $GH_VERSION already exists. Exiting cleanly."
+              exit 0
+            fi
+            # If the tag doesn't exist, then create it and push it
             git tag $GH_VERSION
             git push origin $GH_VERSION
 
@@ -143,10 +149,16 @@ jobs:
             docker pull mt9399/app:latest
             docker tag mt9399/app:latest mt9399/app:$GH_VERSION
             docker push mt9399/app:$GH_VERSION
+      - run:
+          name: Merge to dev
+          command: |
+            git checkout dev
+            git merge main --no-edit -m "Merge branch main into dev"
+            git push origin dev
 
 
 workflows:
-  build_test_push_dev:
+  development:
     jobs:
       - build:
           context:
@@ -156,8 +168,8 @@ workflows:
             - google
           filters:
             branches:
-              only:
-                - dev
+              ignore:
+                - main
       - test:
           requires:
             - build
@@ -194,7 +206,7 @@ workflows:
             branches:
               only:
                 - dev
-  build_push_prod:
+  production:
     # Don't run when commit message is a version number like 1.2.3
     jobs:
       - build:
