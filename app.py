@@ -15,3 +15,5 @@ zz = 243444
 
 print('fix a bug in LNS-100')
 q = 3
+
+aa = 3523324
