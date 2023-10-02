@@ -2,6 +2,17 @@
 
 
 
+## v3.1.0-dev.2 (2023-10-02)
+
+### Ci
+
+* ci: match pattern better ([`c8c33e1`](https://github.com/matthewtrotter/semrelease/commit/c8c33e19b3370127f649b7e26266baf553192919))
+
+### Feature
+
+* feat(bcns): add more data ([`7feeed1`](https://github.com/matthewtrotter/semrelease/commit/7feeed11f09c0e1c0cc44c80a3126f3333003dc1))
+
+
 ## v3.1.0-dev.1 (2023-10-02)
 
 ### Feature
