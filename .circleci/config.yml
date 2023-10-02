@@ -74,6 +74,7 @@ jobs:
             semantic-release version --no-commit --no-changelog --skip-build --push
             export GH_VERSION=v$(semantic-release version --print)
             git tag $GH_VERSION
+            git push origin $GH_VERSION
             sleep 2
 
   tag_dev_image:
