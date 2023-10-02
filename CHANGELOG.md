@@ -2,6 +2,23 @@
 
 
 
+## v3.0.2-dev.3 (2023-10-02)
+
+### Ci
+
+* ci: fix requires ([`5fa9886`](https://github.com/matthewtrotter/semrelease/commit/5fa98867d8f26d65164006393ddc3121a20ddb8e))
+
+* ci: separate pipeline for main ([`5a0cf3d`](https://github.com/matthewtrotter/semrelease/commit/5a0cf3d0e55b4518c02dd737eccf9647372676db))
+
+### Fix
+
+* fix(muxs): restart service when failed (#4) ([`c32c96a`](https://github.com/matthewtrotter/semrelease/commit/c32c96a85555b3e9a1b809a58c4f40497112982b))
+
+### Unknown
+
+* Merge branch &#39;main&#39; into dev ([`88297af`](https://github.com/matthewtrotter/semrelease/commit/88297afd4c6be18f61e827b67c4c781af5e20bcd))
+
+
 ## v3.0.2-dev.2 (2023-10-02)
 
 ### Ci
