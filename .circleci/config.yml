@@ -20,15 +20,20 @@ jobs:
             # Exit if commit message starts with the word "merge" or "Merge" or is a version number like 3.0.25 or 3.0.25-dev.1
             if [[ $COMMIT_MESSAGE =~ ^[Mm]erge ]]; then
                 echo "Commit message starts with the word 'merge'. Exiting job."
-                # Exit the entire job
+                echo "Commit message:"
+                echo $COMMIT_MESSAGE
                 exit 20
             fi
             if [[ $COMMIT_MESSAGE =~ ^[0-9]+\.[0-9]+\.[0-9]+(\n|.)*$ ]]; then
                 echo "Commit message is a version number. Exiting job."
+                echo "Commit message:"
+                echo $COMMIT_MESSAGE
                 exit 21
             fi
             if [[ $COMMIT_MESSAGE =~ ^[0-9]+\.[0-9]+\.[0-9]+-dev\.[0-9]+(\n|.)*$ ]]; then
                 echo "Commit message is a dev version number. Exiting job."
+                echo "Commit message:"
+                echo $COMMIT_MESSAGE
                 exit 22
             fi
             # continue with the rest of the job
@@ -66,7 +71,7 @@ jobs:
       - run:
           name: Bump version
           command: |
-            semantic-release version
+            semantic-release version --no-commit --no-changelog --skip-build --push
             sleep 2
 
   tag_dev_image:
