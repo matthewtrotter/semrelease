@@ -127,7 +127,7 @@ jobs:
           name: Merge main to dev
           command: |
             git checkout dev
-            git merge main
+            git merge main -m "Merge main to dev"
             git push origin dev
 
 
@@ -181,6 +181,7 @@ workflows:
               only:
                 - dev
   build_push_prod:
+    # Don't run when commit message is a version number like 1.2.3
     jobs:
       - build:
           context:
