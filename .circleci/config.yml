@@ -27,7 +27,7 @@ jobs:
               echo "Commit message is a version number. Exiting job."
               exit 21
             fi
-            if [[ $COMMIT_MESSAGE =~ ^[0-9]+\.[0-9]+\.[0-9]+-dev\.[0-9]+$ ]]; then
+            if [[ $COMMIT_MESSAGE =~ ^[0-9]+\.[0-9]+\.[0-9]+(-dev\.[0-9]+)?$ ]]; then
               echo "Commit message is a dev version number. Exiting job."
               exit 22
             fi
