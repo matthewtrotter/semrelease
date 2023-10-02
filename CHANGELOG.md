@@ -2,6 +2,23 @@
 
 
 
+## v3.0.4-dev.1 (2023-10-02)
+
+### Ci
+
+* ci: no more squash n merge commits (#8) ([`9d32a46`](https://github.com/matthewtrotter/semrelease/commit/9d32a464183318307e2f8f5f8143ff1a7798ba1d))
+
+* ci: equals typo ([`ef571e2`](https://github.com/matthewtrotter/semrelease/commit/ef571e24dfcb4a44f59a197594d8dc273742e3d6))
+
+* ci: add export ([`3a46517`](https://github.com/matthewtrotter/semrelease/commit/3a46517187c48b73730362047f9b4e6141f2db34))
+
+* ci: exit on version better ([`5be14a6`](https://github.com/matthewtrotter/semrelease/commit/5be14a64118aac4729ca945aa9814324b0093c59))
+
+### Fix
+
+* fix(downs): remove problematic logs ([`6ecae7a`](https://github.com/matthewtrotter/semrelease/commit/6ecae7aecdd1c544f7c46e034e304cc5e1371f44))
+
+
 ## v3.0.3 (2023-10-02)
 
 ### Ci
