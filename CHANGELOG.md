@@ -2,6 +2,19 @@
 
 
 
+## v3.1.0-dev.1 (2023-10-02)
+
+### Feature
+
+* feat: add new bcns webpage ([`83a483e`](https://github.com/matthewtrotter/semrelease/commit/83a483e1b08e7379f318353006e559c222c46c18))
+
+* feat(bcns): add new webpage ([`edc60d6`](https://github.com/matthewtrotter/semrelease/commit/edc60d691cede9a9ab06c3888926fd843035d883))
+
+### Unknown
+
+* Merge branch &#39;dev&#39; of github.com:matthewtrotter/semrelease into dev ([`d6c624b`](https://github.com/matthewtrotter/semrelease/commit/d6c624bbbfbb03cf65f848d7f2627e6b86fcf3ec))
+
+
 ## v3.0.4-dev.1 (2023-10-02)
 
 ### Ci
